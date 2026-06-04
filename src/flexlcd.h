@@ -17,8 +17,8 @@
 	Author website: https://www.geekfactory.mx
 	Author e-mail: ruben at geekfactory dot mx
  */
-#ifndef GF_FLEXLCD_H
-#define GF_FLEXLCD_H
+#ifndef FLEXLCD_H
+#define FLEXLCD_H
 
 /*-------------------------------------------------------------*/
 /*		Includes and dependencies			*/
@@ -94,11 +94,11 @@ enum enLCDCursorModes
  */
 typedef struct
 {
-	gf_flexlcd_hal_t *hal;
+	flexlcd_hal_t *hal;
 	uint8_t rows;
 	uint8_t cols;
 	uint8_t dispctrl;
-} gf_flexlcd_t;
+} flexlcd_t;
 
 /*-------------------------------------------------------------*/
 /*		Function prototypes				*/
@@ -116,17 +116,17 @@ extern "C"
 	 * sequences are performed here.
 	 *
 	 * The Initialization routine leaves the display disabled. To see the written
-	 * text you should enable it by calling gf_flexlcd_on() function.
+	 * text you should enable it by calling flexlcd_on() function.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure
-	 * @param hal A pointer to a gf_flexlcd_hal_t structure
+	 * @param lcd A pointer to a flexlcd_t structure
+	 * @param hal A pointer to a flexlcd_hal_t structure
 	 * @param cols The number of columns present on the display (number of
 	 * horizontal characters)
 	 * @param rows The number of rows that the display can show (text lines)
 	 *
 	 * @return Returns true if the LCD was succesfully initialized, false otherwise.
 	 */
-	bool gf_flexlcd_init(gf_flexlcd_t *lcd, gf_flexlcd_hal_t *hal, uint8_t cols, uint8_t rows);
+	bool flexlcd_init(flexlcd_t *lcd, flexlcd_hal_t *hal, uint8_t cols, uint8_t rows);
 
 	/**
 	 * @brief  Clears the entire LCD display.
@@ -134,10 +134,10 @@ extern "C"
 	 * Clears the LCD and returns the cursor to the home position. All data on the
 	 * display controller's RAM memory is cleared.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_clear(gf_flexlcd_t *lcd);
+	void flexlcd_clear(flexlcd_t *lcd);
 
 	/**
 	 * @brief Returns the cursor to home position.
@@ -145,10 +145,10 @@ extern "C"
 	 * This function returns the cursor to the begining of the DDRAM memory without
 	 * affecting it's contents.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_home(gf_flexlcd_t *lcd);
+	void flexlcd_home(flexlcd_t *lcd);
 
 	/**
 	 * @brief Turns on the display and shows the DDRAM contents.
@@ -158,10 +158,10 @@ extern "C"
 	 * the display is turned Off, so you need to call this function before you see
 	 * anything on screen.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_on(gf_flexlcd_t *lcd);
+	void flexlcd_on(flexlcd_t *lcd);
 
 	/**
 	 * @brief Turns off the display.
@@ -169,10 +169,10 @@ extern "C"
 	 * This function turns off the display and hides the content of the DDRAM,
 	 * however the data on the DDRAM (display memory) is NOT cleared.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_off(gf_flexlcd_t *lcd);
+	void flexlcd_off(flexlcd_t *lcd);
 
 	/**
 	 * @brief Set the cursor display mode.
@@ -185,32 +185,32 @@ extern "C"
 	 *
 	 * As defined in enum enLCDCursorModes.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 * @param emode The display mode of the cursor.
 	 *
 	 */
-	void gf_flexlcd_cursor(gf_flexlcd_t *lcd, enum enLCDCursorModes emode);
+	void flexlcd_cursor(flexlcd_t *lcd, enum enLCDCursorModes emode);
 
 	/**
 	 * @brief Moves the cursor one position to the left.
 	 *
 	 * Sends a command to move the cursor one position to the left.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_cursor_left(gf_flexlcd_t *lcd);
+	void flexlcd_cursor_left(flexlcd_t *lcd);
 
 	/**
 	 * @brief Moves the cursor one position to the right.
 	 *
 	 * Sends a command to move the cursor one position to the right.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_cursor_right(gf_flexlcd_t *lcd);
+	void flexlcd_cursor_right(flexlcd_t *lcd);
 
 	/**
 	 * @brief Scrolls the display viewport to the left.
@@ -218,10 +218,10 @@ extern "C"
 	 * Scrolls the viewport one position to the left, cursor position is also
 	 * affected.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_scroll_left(gf_flexlcd_t *lcd);
+	void flexlcd_scroll_left(flexlcd_t *lcd);
 
 	/**
 	 * @brief Scrolls the display viewport to the right.
@@ -229,10 +229,10 @@ extern "C"
 	 * Scrolls the viewport one position to the right, cursor position is also
 	 * affected.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_scroll_right(gf_flexlcd_t *lcd);
+	void flexlcd_scroll_right(flexlcd_t *lcd);
 
 	/**
 	 * @brief Enables LCD autoscroll mode.
@@ -241,10 +241,10 @@ extern "C"
 	 * When autoscroll is enabled, the display will automatically scroll to the left
 	 * when a new character is written to the rightmost position of the display.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_autoscroll_on(gf_flexlcd_t *lcd);
+	void flexlcd_autoscroll_on(flexlcd_t *lcd);
 
 	/**
 	 * @brief Disables LCD autoscroll mode.
@@ -253,24 +253,24 @@ extern "C"
 	 * will not scroll when new characters are written to the rightmost position of
 	 * the display.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 */
-	void gf_flexlcd_autoscroll_off(gf_flexlcd_t *lcd);
+	void flexlcd_autoscroll_off(flexlcd_t *lcd);
 
 	/**
 	 * @brief Moves the cursor to the given position.
 	 *
 	 * This functions sets the cursor position on the DDRAM. If cursor display is
-	 * enabled (using gf_flexlcd_cursor()), cursor will also be shown on the display.
+	 * enabled (using flexlcd_cursor()), cursor will also be shown on the display.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 * @param col The column of the LCD to place the cursor, with 0 being the
 	 * leftmost position on the display.
 	 * @param row The row on the LCD to place the cursor, where the top row is 0.
 	 */
-	void gf_flexlcd_goto(gf_flexlcd_t *lcd, uint8_t col, uint8_t row);
+	void flexlcd_goto(flexlcd_t *lcd, uint8_t col, uint8_t row);
 
 	/**
 	 * @brief Writes data or a command to the LCD display.
@@ -281,71 +281,71 @@ extern "C"
 	 * set to true if the data presented to this function is a character or false if
 	 * the data is a command to the LCD controller.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 * @param data The data or command byte to send to the LCD
 	 * @param rs A boolean value indicating if the previous parameter was a
 	 * character to display (true) or a command (false) to the LCD controller.
 	 */
-	void gf_flexlcd_send(gf_flexlcd_t *lcd, uint8_t data, bool rs);
+	void flexlcd_send(flexlcd_t *lcd, uint8_t data, bool rs);
 
 	/**
 	 * @brief Writes a command to the LCD controller.
 	 *
-	 * Helper function that calls gf_flexlcd_send() with the "rs" parameter set to
+	 * Helper function that calls flexlcd_send() with the "rs" parameter set to
 	 * false, indicating that the data being sent is a command.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 * @param command The command byte to send to the LCD controller.
 	 */
-	void gf_flexlcd_command(gf_flexlcd_t *lcd, uint8_t command);
+	void flexlcd_command(flexlcd_t *lcd, uint8_t command);
 
 	/**
 	 * @brief Writes a character to LCD controller's DDRAM.
 	 *
-	 * Helper function that calls gf_flexlcd_send() with the "rs" parameter set to
+	 * Helper function that calls flexlcd_send() with the "rs" parameter set to
 	 * true, indicating that the data being sent is a character to display.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 * @param character The character to write to the LCD display at the current
 	 * cursor position.
 	 */
-	void gf_flexlcd_putc(gf_flexlcd_t *lcd, char character);
+	void flexlcd_putc(flexlcd_t *lcd, char character);
 
 	/**
 	 * @brief Writes a string to the current LCD position.
 	 *
 	 * Writes a null terminated string to the current position on DDRAM.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 * @param string Pointer to the string to write to the screen. The string must
 	 * be null terminated.
 	 */
-	void gf_flexlcd_puts(gf_flexlcd_t *lcd, const char *string);
+	void flexlcd_puts(flexlcd_t *lcd, const char *string);
 
 	/**
 	 * @brief Writes a custom character to CGRAM.
 	 *
 	 * This function allows the user to define up to 8 personalized characters that
-	 * can be displayed by sending the appropiate code using the gf_flexlcd_putc()
+	 * can be displayed by sending the appropiate code using the flexlcd_putc()
 	 * function.
 	 *
 	 * The custom character number and the char bitmap are passed to this function
 	 * and it writes to the proper CGRAM address.
 	 *
-	 * @param lcd A pointer to a gf_flexlcd_t structure that is used to aceess the
+	 * @param lcd A pointer to a flexlcd_t structure that is used to aceess the
 	 * display instance.
 	 * @param charnum The number for the custom character to define.
 	 * @param chardata The character bitmap. Each custom character is composed of
 	 * 8 bytes which are read from the provided data buffer.
 	 */
-	void gf_flexlcd_create_char(gf_flexlcd_t *lcd, uint8_t charnum, const uint8_t *chardata);
+	void flexlcd_create_char(flexlcd_t *lcd, uint8_t charnum, const uint8_t *chardata);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // GF_FLEXLCD_H
+#endif // FLEXLCD_H

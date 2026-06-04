@@ -21,7 +21,7 @@
 #define RPI_HAL_H
 // This library uses libgpiod to access GPIO pins on linux devices
 #include <gpiod.h>
-#include "gf_flexlcd_hal.h"
+#include "flexlcd_hal.h"
 
 typedef struct
 {
@@ -34,9 +34,9 @@ typedef struct
 	struct gpiod_line *d6;
 	struct gpiod_line *d7;
 
-} gf_flexlcd_rpi_context_t;
+} flexlcd_rpi_context_t;
 
-bool gf_flexlcd_rpi_init(gf_flexlcd_hal_t *hal, gf_flexlcd_rpi_context_t *ctx, const char *chipname,
+bool flexlcd_rpi_init(flexlcd_hal_t *hal, flexlcd_rpi_context_t *ctx, const char *chipname,
 			 int rs,
 			 int en,
 			 int rw,

@@ -2,7 +2,7 @@
 
 static void pic_io_init(void *context)
 {
-	gf_flexlcd_pic_context_t *hal_context = (gf_flexlcd_pic_context_t *)context;
+	flexlcd_pic_context_t *hal_context = (flexlcd_pic_context_t *)context;
 	// Set data and control pins as outputs
 	*(hal_context->bus_tris) &= ~(hal_context->bus_mask);
 	*(hal_context->bus_tris) &= ~(hal_context->rs);
@@ -11,7 +11,7 @@ static void pic_io_init(void *context)
 
 static void pic_set_control_line(void *context, enum enLCDControlPins line, bool value)
 {
-	gf_flexlcd_pic_context_t *hal_context = (gf_flexlcd_pic_context_t *)context;
+	flexlcd_pic_context_t *hal_context = (flexlcd_pic_context_t *)context;
 	switch (line)
 	{
 	case E_RS_PIN:
@@ -33,7 +33,7 @@ static void pic_set_control_line(void *context, enum enLCDControlPins line, bool
 
 static void pic_write_bus(void *context, uint8_t data)
 {
-	gf_flexlcd_pic_context_t *hal_context = (gf_flexlcd_pic_context_t *)context;
+	flexlcd_pic_context_t *hal_context = (flexlcd_pic_context_t *)context;
 	char temp = *(hal_context->bus_port);
 	temp &= ~(hal_context->bus_mask);
 	temp |= (data & 0x0F) << hal_context->bus_offset;
@@ -50,7 +50,7 @@ static void pic_delay_us(uint32_t us)
 		__delay_us(1);
 }
 
-void gf_flexlcd_pic_init(gf_flexlcd_hal_t *hal, gf_flexlcd_pic_context_t *context, volatile unsigned char *bus_port, volatile unsigned char *bus_tris, uint8_t bus_mask, uint8_t bus_offset, uint8_t rs_mask, uint8_t en_mask)
+void flexlcd_pic_init(gf_flexlcd_hal_t *hal, flexlcd_pic_context_t *context, volatile unsigned char *bus_port, volatile unsigned char *bus_tris, uint8_t bus_mask, uint8_t bus_offset, uint8_t rs_mask, uint8_t en_mask)
 {
 	context->bus_port = bus_port;
 	context->bus_tris = bus_tris;

@@ -97,7 +97,7 @@ static void pico_delay_us(uint32_t us)
 	sleep_us(us);
 }
 
-void gf_flexlcd_pico_init(gf_flexlcd_hal_t *hal, gf_flexlcd_pico_fast_ctx_t *ctx,
+void flexlcd_pico_init(gf_flexlcd_hal_t *hal, gf_flexlcd_pico_fast_ctx_t *ctx,
 			  uint8_t rs,
 			  uint8_t en,
 			  uint8_t rw,

@@ -21,7 +21,7 @@
 
 inline static void arduino_pulse_enable(void *context)
 {
-	gf_flexlcd_arduino_context_t *hal_context = (gf_flexlcd_arduino_context_t *)context;
+	flexlcd_arduino_context_t *hal_context = (flexlcd_arduino_context_t *)context;
 
 	digitalWrite(hal_context->en, HIGH);
 	delayMicroseconds(1);
@@ -30,7 +30,7 @@ inline static void arduino_pulse_enable(void *context)
 
 static void arduino_io_init(void *context)
 {
-	gf_flexlcd_arduino_context_t *hal_context = (gf_flexlcd_arduino_context_t *)context;
+	flexlcd_arduino_context_t *hal_context = (flexlcd_arduino_context_t *)context;
 
 	// Set pin modes for control and data lines
 	if (hal_context->rw != GF_FLEXLCD_INVALID_PIN)
@@ -55,7 +55,7 @@ static void arduino_io_init(void *context)
 
 static void arduino_set_control_line(void *context, enum enLCDControlPins line, bool value)
 {
-	gf_flexlcd_arduino_context_t *hal_context = (gf_flexlcd_arduino_context_t *)context;
+	flexlcd_arduino_context_t *hal_context = (flexlcd_arduino_context_t *)context;
 
 	switch (line)
 	{
@@ -77,7 +77,7 @@ static void arduino_set_control_line(void *context, enum enLCDControlPins line, 
 
 static void arduino_write_bus(void *context, uint8_t nibble)
 {
-	gf_flexlcd_arduino_context_t *hal_context = (gf_flexlcd_arduino_context_t *)context;
+	flexlcd_arduino_context_t *hal_context = (flexlcd_arduino_context_t *)context;
 
 	digitalWrite(hal_context->d4, (nibble >> 0) & 0x01);
 	digitalWrite(hal_context->d5, (nibble >> 1) & 0x01);
@@ -92,7 +92,7 @@ static void arduino_delay_us(uint32_t us)
 	delayMicroseconds(us);
 }
 
-void gf_flexlcd_arduino_init(gf_flexlcd_hal_t *hal, gf_flexlcd_arduino_context_t *context, uint8_t rs, uint8_t en, uint8_t rw, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7)
+void flexlcd_arduino_init(gf_flexlcd_hal_t *hal, flexlcd_arduino_context_t *context, uint8_t rs, uint8_t en, uint8_t rw, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7)
 {
 	// store pin numbers in the context structure
 	context->rs = rs;

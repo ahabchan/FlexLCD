@@ -70,7 +70,7 @@ static void pic_delay_us(uint32_t us)
 		__delay_us(1);
 }
 
-void gf_flexlcd_pic_mini_init(gf_flexlcd_hal_t *hal)
+void flexlcd_pic_mini_init(flexlcd_hal_t *hal)
 {
 	hal->io_init = pic_io_init;
 	hal->set_control_line = pic_set_control_line;

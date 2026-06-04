@@ -17,11 +17,11 @@
 	Author website: https://www.geekfactory.mx
 	Author e-mail: ruben at geekfactory dot mx
  */
-#include "gf_flexlcd.h"
+#include "flexlcd.h"
 
 const uint8_t rowaddr[4] = {0x00, 0x40, 0x14, 0x54};
 
-bool gf_flexlcd_init(gf_flexlcd_t *lcd, gf_flexlcd_hal_t *hal, uint8_t cols, uint8_t rows)
+bool flexlcd_init(flexlcd_t *lcd, flexlcd_hal_t *hal, uint8_t cols, uint8_t rows)
 {
 	// store the HAL structure and LCD dimensions in the LCD structure
 	lcd->hal = hal;
@@ -53,19 +53,19 @@ bool gf_flexlcd_init(gf_flexlcd_t *lcd, gf_flexlcd_hal_t *hal, uint8_t cols, uin
 		hal->write_bus(hal->context, 0x02);
 		hal->delay_us(120);
 		// now that the LCD is in 4 bit mode, we can use the higher level functions to configure it
-		gf_flexlcd_command(lcd, E_FUNCTION_SET | BIT_DL_DATALENGTH_4 | BIT_N_DISP_LINES_2 | BIT_F_FONT_5_10);
+		flexlcd_command(lcd, E_FUNCTION_SET | BIT_DL_DATALENGTH_4 | BIT_N_DISP_LINES_2 | BIT_F_FONT_5_10);
 		hal->delay_us(50);
 	}
 	else if (hal->bus_mode == 8)
 	{
 		// Begin LCD controller Initialization (HD44780 page 45-46)
-		gf_flexlcd_command(lcd, E_FUNCTION_SET);
+		flexlcd_command(lcd, E_FUNCTION_SET);
 		hal->delay_us(50000);
-		gf_flexlcd_command(lcd, E_FUNCTION_SET);
+		flexlcd_command(lcd, E_FUNCTION_SET);
 		hal->delay_us(120);
-		gf_flexlcd_command(lcd, E_FUNCTION_SET);
+		flexlcd_command(lcd, E_FUNCTION_SET);
 		hal->delay_us(120);
-		gf_flexlcd_command(lcd, E_FUNCTION_SET | BIT_DL_DATALENGTH_8 | BIT_N_DISP_LINES_2 | BIT_F_FONT_5_10);
+		flexlcd_command(lcd, E_FUNCTION_SET | BIT_DL_DATALENGTH_8 | BIT_N_DISP_LINES_2 | BIT_F_FONT_5_10);
 		hal->delay_us(50);
 	}
 	else
@@ -73,19 +73,19 @@ bool gf_flexlcd_init(gf_flexlcd_t *lcd, gf_flexlcd_hal_t *hal, uint8_t cols, uin
 		return false; // Invalid IO mode
 	}
 	// Configure display after power up
-	gf_flexlcd_command(lcd, E_DISPLAY_ON_OFF_CTRL | BIT_D_DISPLAY_OFF);
+	flexlcd_command(lcd, E_DISPLAY_ON_OFF_CTRL | BIT_D_DISPLAY_OFF);
 	hal->delay_us(50);
-	gf_flexlcd_command(lcd, E_CLEAR_DISPLAY);
+	flexlcd_command(lcd, E_CLEAR_DISPLAY);
 	hal->delay_us(2000);
-	gf_flexlcd_command(lcd, E_ENTRY_MODE_SET | BIT_S_AUTOSCROLL_OFF | BIT_ID_INCREMENT_CURSOR);
+	flexlcd_command(lcd, E_ENTRY_MODE_SET | BIT_S_AUTOSCROLL_OFF | BIT_ID_INCREMENT_CURSOR);
 	hal->delay_us(50);
 
 	return true;
 }
 
-void gf_flexlcd_send(gf_flexlcd_t *lcd, uint8_t data, bool rs)
+void flexlcd_send(flexlcd_t *lcd, uint8_t data, bool rs)
 {
-	gf_flexlcd_hal_t *hal = lcd->hal;
+	flexlcd_hal_t *hal = lcd->hal;
 
 	// Set RW to low for write operation
 	hal->set_control_line(hal->context, E_RW_PIN, false);
@@ -103,87 +103,87 @@ void gf_flexlcd_send(gf_flexlcd_t *lcd, uint8_t data, bool rs)
 	}
 }
 
-void gf_flexlcd_putc(gf_flexlcd_t *lcd, char character)
+void flexlcd_putc(flexlcd_t *lcd, char character)
 {
-	gf_flexlcd_send(lcd, (uint8_t)character, true);
+	flexlcd_send(lcd, (uint8_t)character, true);
 }
 
-void gf_flexlcd_command(gf_flexlcd_t *lcd, uint8_t command)
+void flexlcd_command(flexlcd_t *lcd, uint8_t command)
 {
-	gf_flexlcd_send(lcd, command, false);
+	flexlcd_send(lcd, command, false);
 }
 
-void gf_flexlcd_clear(gf_flexlcd_t *lcd)
+void flexlcd_clear(flexlcd_t *lcd)
 {
-	gf_flexlcd_command(lcd, E_CLEAR_DISPLAY);
+	flexlcd_command(lcd, E_CLEAR_DISPLAY);
 	lcd->hal->delay_us(2000);
 }
 
-void gf_flexlcd_home(gf_flexlcd_t *lcd)
+void flexlcd_home(flexlcd_t *lcd)
 {
-	gf_flexlcd_command(lcd, E_RETURN_HOME);
+	flexlcd_command(lcd, E_RETURN_HOME);
 	lcd->hal->delay_us(2000);
 }
 
-void gf_flexlcd_on(gf_flexlcd_t *lcd)
+void flexlcd_on(flexlcd_t *lcd)
 {
 	lcd->dispctrl |= BIT_D_DISPLAY_ON;
-	gf_flexlcd_command(lcd, E_DISPLAY_ON_OFF_CTRL | lcd->dispctrl);
+	flexlcd_command(lcd, E_DISPLAY_ON_OFF_CTRL | lcd->dispctrl);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_off(gf_flexlcd_t *lcd)
+void flexlcd_off(flexlcd_t *lcd)
 {
 	lcd->dispctrl &= ~BIT_D_DISPLAY_ON;
-	gf_flexlcd_command(lcd, E_DISPLAY_ON_OFF_CTRL | lcd->dispctrl);
+	flexlcd_command(lcd, E_DISPLAY_ON_OFF_CTRL | lcd->dispctrl);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_cursor(gf_flexlcd_t *lcd, enum enLCDCursorModes mode)
+void flexlcd_cursor(flexlcd_t *lcd, enum enLCDCursorModes mode)
 {
 	lcd->dispctrl &= 0xFC;
 	lcd->dispctrl |= mode;
-	gf_flexlcd_command(lcd, E_DISPLAY_ON_OFF_CTRL | lcd->dispctrl);
+	flexlcd_command(lcd, E_DISPLAY_ON_OFF_CTRL | lcd->dispctrl);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_cursor_left(gf_flexlcd_t *lcd)
+void flexlcd_cursor_left(flexlcd_t *lcd)
 {
-	gf_flexlcd_command(lcd, E_CURSOR_DISPLAY_SHIFT | BIT_SC_SHIFT_CURSOR | BIT_RL_SHIFT_LEFT);
+	flexlcd_command(lcd, E_CURSOR_DISPLAY_SHIFT | BIT_SC_SHIFT_CURSOR | BIT_RL_SHIFT_LEFT);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_cursor_right(gf_flexlcd_t *lcd)
+void flexlcd_cursor_right(flexlcd_t *lcd)
 {
-	gf_flexlcd_command(lcd, E_CURSOR_DISPLAY_SHIFT | BIT_SC_SHIFT_CURSOR | BIT_RL_SHIFT_RIGHT);
+	flexlcd_command(lcd, E_CURSOR_DISPLAY_SHIFT | BIT_SC_SHIFT_CURSOR | BIT_RL_SHIFT_RIGHT);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_scroll_left(gf_flexlcd_t *lcd)
+void flexlcd_scroll_left(flexlcd_t *lcd)
 {
-	gf_flexlcd_command(lcd, E_CURSOR_DISPLAY_SHIFT | BIT_SC_SHIFT_DISPLAY | BIT_RL_SHIFT_LEFT);
+	flexlcd_command(lcd, E_CURSOR_DISPLAY_SHIFT | BIT_SC_SHIFT_DISPLAY | BIT_RL_SHIFT_LEFT);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_scroll_right(gf_flexlcd_t *lcd)
+void flexlcd_scroll_right(flexlcd_t *lcd)
 {
-	gf_flexlcd_command(lcd, E_CURSOR_DISPLAY_SHIFT | BIT_SC_SHIFT_DISPLAY | BIT_RL_SHIFT_RIGHT);
+	flexlcd_command(lcd, E_CURSOR_DISPLAY_SHIFT | BIT_SC_SHIFT_DISPLAY | BIT_RL_SHIFT_RIGHT);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_autoscroll_on(gf_flexlcd_t *lcd)
+void flexlcd_autoscroll_on(flexlcd_t *lcd)
 {
-	gf_flexlcd_command(lcd, E_ENTRY_MODE_SET | BIT_S_AUTOSCROLL_ON | BIT_ID_INCREMENT_CURSOR);
+	flexlcd_command(lcd, E_ENTRY_MODE_SET | BIT_S_AUTOSCROLL_ON | BIT_ID_INCREMENT_CURSOR);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_autoscroll_off(gf_flexlcd_t *lcd)
+void flexlcd_autoscroll_off(flexlcd_t *lcd)
 {
-	gf_flexlcd_command(lcd, E_ENTRY_MODE_SET | BIT_S_AUTOSCROLL_OFF | BIT_ID_INCREMENT_CURSOR);
+	flexlcd_command(lcd, E_ENTRY_MODE_SET | BIT_S_AUTOSCROLL_OFF | BIT_ID_INCREMENT_CURSOR);
 	lcd->hal->delay_us(50);
 }
 
-void gf_flexlcd_goto(gf_flexlcd_t *lcd, uint8_t col, uint8_t row)
+void flexlcd_goto(flexlcd_t *lcd, uint8_t col, uint8_t row)
 {
 	// Apply limits for Rows and Columns
 	if (row >= lcd->rows)
@@ -191,20 +191,20 @@ void gf_flexlcd_goto(gf_flexlcd_t *lcd, uint8_t col, uint8_t row)
 	if (col >= lcd->cols)
 		col = lcd->cols - 1;
 
-	gf_flexlcd_command(lcd, E_SET_DDRAM_ADDR | (col + rowaddr[row]));
+	flexlcd_command(lcd, E_SET_DDRAM_ADDR | (col + rowaddr[row]));
 }
 
-void gf_flexlcd_puts(gf_flexlcd_t *lcd, const char *string)
+void flexlcd_puts(flexlcd_t *lcd, const char *string)
 {
 	while (*string != '\0')
-		gf_flexlcd_putc(lcd, *string++);
+		flexlcd_putc(lcd, *string++);
 }
 
-void gf_flexlcd_create_char(gf_flexlcd_t *lcd, uint8_t charnum, const uint8_t *chardata)
+void flexlcd_create_char(flexlcd_t *lcd, uint8_t charnum, const uint8_t *chardata)
 {
 	uint8_t i;
 	charnum &= 0x07;
-	gf_flexlcd_command(lcd, E_SET_CGRAM_ADDR | (uint8_t)(charnum << 3));
+	flexlcd_command(lcd, E_SET_CGRAM_ADDR | (uint8_t)(charnum << 3));
 	for (i = 0; i < 8; i++)
-		gf_flexlcd_send(lcd, chardata[i], 1);
+		flexlcd_send(lcd, chardata[i], 1);
 }

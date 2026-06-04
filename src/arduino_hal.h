@@ -18,7 +18,7 @@
 	Author e-mail: ruben at geekfactory dot mx
  */
 #include <Arduino.h>
-#include "gf_flexlcd_hal.h"
+#include "flexlcd_hal.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -41,7 +41,7 @@ extern "C"
 		uint8_t d5;
 		uint8_t d6;
 		uint8_t d7;
-	} gf_flexlcd_arduino_context_t;
+	} flexlcd_arduino_context_t;
 
 	/**
 	 * @brief Initializes the LCD HAL structure for Arduino platform
@@ -49,8 +49,8 @@ extern "C"
 	 * This function initializes the LCD HAL structure with the appropriate function pointers for the Arduino platform
 	 * and stores the pin numbers in the context structure.
 	 *
-	 * @param hal A pointer to the gf_flexlcd_hal_t structure to initialize
-	 * @param context A pointer to the gf_flexlcd_arduino_context_t structure to store IO information
+	 * @param hal A pointer to the flexlcd_hal_t structure to initialize
+	 * @param context A pointer to the flexlcd_arduino_context_t structure to store IO information
 	 * @param rs The pin number connected to the RS line of the LCD
 	 * @param en The pin number connected to the EN line of the LCD
 	 * @param rw The pin number connected to the RW line of the LCD (set to 0 if not used)
@@ -59,7 +59,7 @@ extern "C"
 	 * @param d6 The pin number connected to the D6 line of the LCD (used in 4-bit mode)
 	 * @param d7 The pin number connected to the D7 line of the LCD (used in 4-bit mode)
 	 */
-	void gf_flexlcd_arduino_init(gf_flexlcd_hal_t *hal, gf_flexlcd_arduino_context_t *context, uint8_t rs, uint8_t en, uint8_t rw, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7);
+	void flexlcd_arduino_init(flexlcd_hal_t *hal, flexlcd_arduino_context_t *context, uint8_t rs, uint8_t en, uint8_t rw, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7);
 
 #ifdef __cplusplus
 }

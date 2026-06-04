@@ -27,7 +27,7 @@
 #include "hardware/structs/sio.h"
 #include "pico/stdlib.h"
 
-#include "gf_flexlcd_hal.h"
+#include "flexlcd_hal.h"
 
 typedef struct
 {
@@ -39,9 +39,9 @@ typedef struct
 	uint32_t d6_mask;
 	uint32_t d7_mask;
 	uint32_t data_mask;
-} gf_flexlcd_pico_context_t;
+} flexlcd_pico_context_t;
 
-void gf_flexlcd_pico_init(gf_flexlcd_hal_t *hal, gf_flexlcd_pico_context_t *ctx,
+void flexlcd_pico_init(flexlcd_hal_t *hal, flexlcd_pico_context_t *ctx,
 			  uint8_t rs,
 			  uint8_t en,
 			  uint8_t rw,

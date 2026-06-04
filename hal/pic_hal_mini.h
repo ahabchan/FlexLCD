@@ -23,7 +23,7 @@
 #include <XC.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include "gf_flexlcd_hal.h"
+#include "flexlcd_hal.h"
 
 #define _XTAL_FREQ 4000000
 
@@ -37,6 +37,6 @@
  *
  * @param hal Pointer to the HAL structure to initialize.
  */
-void gf_flexlcd_pic_mini_init(gf_flexlcd_hal_t *hal);
+void flexlcd_pic_mini_init(flexlcd_hal_t *hal);
 
 #endif // PIC_HAL_MINI_H

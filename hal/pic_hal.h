@@ -4,7 +4,7 @@
 #include <XC.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include "gf_flexlcd_hal.h"
+#include "flexlcd_hal.h"
 #define _XTAL_FREQ 4000000
 
 /**
@@ -21,10 +21,10 @@ typedef struct {
     uint8_t bus_offset;
     uint8_t rs;
     uint8_t en;
-} gf_flexlcd_pic_context_t;
+} flexlcd_pic_context_t;
 
 /** 
  */
-void gf_flexlcd_pic_init(gf_flexlcd_hal_t *hal, gf_flexlcd_pic_context_t *context, volatile unsigned char * bus_port, volatile unsigned char * bus_tris, uint8_t bus_mask, uint8_t bus_offset, uint8_t rs_mask, uint8_t en_mask);
+void flexlcd_pic_init(flexlcd_hal_t *hal, flexlcd_pic_context_t *context, volatile unsigned char * bus_port, volatile unsigned char * bus_tris, uint8_t bus_mask, uint8_t bus_offset, uint8_t rs_mask, uint8_t en_mask);
 
 #endif // PIC_HAL_H

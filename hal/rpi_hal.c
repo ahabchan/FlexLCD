@@ -25,7 +25,7 @@
 
 static void rpi_io_init(void *context)
 {
-	gf_flexlcd_rpi_context_t *ctx = context;
+	flexlcd_rpi_context_t *ctx = context;
 
 	gpiod_line_request_output(ctx->rs, "flexlcd", 0);
 	gpiod_line_request_output(ctx->en, "flexlcd", 0);
@@ -39,7 +39,7 @@ static void rpi_io_init(void *context)
 
 static void rpi_set_control_line(void *context, enum enLCDControlPins line, bool value)
 {
-	gf_flexlcd_rpi_context_t *ctx = context;
+	flexlcd_rpi_context_t *ctx = context;
 
 	switch (line)
 	{
@@ -60,7 +60,7 @@ static void rpi_set_control_line(void *context, enum enLCDControlPins line, bool
 
 static void rpi_write_bus(void *context, uint8_t nibble)
 {
-	gf_flexlcd_rpi_context_t *ctx = context;
+	flexlcd_rpi_context_t *ctx = context;
 
 	gpiod_line_set_value(ctx->d4, (nibble >> 0) & 1);
 	gpiod_line_set_value(ctx->d5, (nibble >> 1) & 1);
@@ -77,7 +77,7 @@ static void rpi_delay_us(uint32_t us)
 	usleep(us);
 }
 
-bool gf_flexlcd_rpi_init(gf_flexlcd_hal_t *hal, gf_flexlcd_rpi_context_t *ctx, const char *chipname,
+bool flexlcd_rpi_init(gf_flexlcd_hal_t *hal, flexlcd_rpi_context_t *ctx, const char *chipname,
 			 int rs,
 			 int en,
 			 int rw,
