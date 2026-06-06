@@ -50,7 +50,7 @@ static void pic_delay_us(uint32_t us)
 		__delay_us(1);
 }
 
-void flexlcd_pic_init(gf_flexlcd_hal_t *hal, flexlcd_pic_context_t *context, volatile unsigned char *bus_port, volatile unsigned char *bus_tris, uint8_t bus_mask, uint8_t bus_offset, uint8_t rs_mask, uint8_t en_mask)
+void flexlcd_pic_init(flexlcd_hal_t *hal, flexlcd_pic_context_t *context, volatile unsigned char *bus_port, volatile unsigned char *bus_tris, uint8_t bus_mask, uint8_t bus_offset, uint8_t rs_mask, uint8_t en_mask)
 {
 	context->bus_port = bus_port;
 	context->bus_tris = bus_tris;
